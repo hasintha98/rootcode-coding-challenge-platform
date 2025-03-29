@@ -1,4 +1,4 @@
-import { JSX, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
