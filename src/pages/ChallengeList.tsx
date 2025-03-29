@@ -119,7 +119,7 @@ const ChallengeList = () => {
                       onClick={() => handleChallengeClick(challenge.id)}
                       className="btn btn-primary w-100 mt-3"
                     >
-                      Attempt Challenge
+                      GET STARTED
                     </button>
                   </div>
                 </div>
