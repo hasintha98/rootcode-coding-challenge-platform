@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from '../utils/axiosConfig';
 
 const API = import.meta.env.VITE_CHALLENGE_API;
 

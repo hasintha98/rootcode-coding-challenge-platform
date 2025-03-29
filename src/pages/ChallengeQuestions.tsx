@@ -22,19 +22,11 @@ const ChallengeQuestions = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const { completedQuestions, timeSpent } = useSelector(
     (state: RootState) => state.challenges
   );
   const challengeId = id ? parseInt(id, 10) : 0;
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/");
-    }
-  }, [isAuthenticated, navigate]);
 
   const fetchChallenge = async () => {
     try {

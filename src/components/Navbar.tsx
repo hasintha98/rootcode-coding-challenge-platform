@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/store";
 import { useNavigate } from "react-router-dom";
 import CompletedChallengesModal from "./CompletedChallengesModal";
-import { CompletedQuestion } from "../types/interfaces";
+import { CompletedQuestion } from "../types/interfaces"; // Ensure this path is correct
+import { logout } from "../store/slices/authSlice"; // Import logout action
 
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-  const { completedQuestions } = useSelector(
-    (state: RootState) => state.challenges
-  );
+  const { completedQuestions } = useSelector((state: RootState) => state.challenges);
   const [count, setCount] = useState(0);
 
-  const countCompletedChallenges = (
-    completedQuestions: CompletedQuestion[]
-  ): number => {
+  const countCompletedChallenges = (completedQuestions: CompletedQuestion[]): number => {
     const challengeCompletionMap = new Map<number, number>();
 
     completedQuestions.forEach(({ challengeId }) => {
@@ -52,6 +50,11 @@ const Navbar = () => {
     setIsModalOpen(true);
   };
 
+  const handleLogout = () => {
+    dispatch(logout()); 
+    navigate("/"); 
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -63,13 +66,19 @@ const Navbar = () => {
             Coding Challenge Platform
           </a>
           {isAuthenticated && (
-            <div className="ms-auto">
+            <div className="ms-auto d-flex align-items-center">
               <span
-                className="badge bg-light text-primary cursor-pointer"
+                className="badge bg-light text-primary cursor-pointer me-3"
                 onClick={handleIndicatorClick}
               >
                 Completed Challenges: {count}
               </span>
+              <button
+                className="btn btn-outline-light"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             </div>
           )}
         </div>

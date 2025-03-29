@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "../../types/interfaces";
+import { TokenService } from "../../services/TokenService";
 
 const initialState: AuthState = {
-  isAuthenticated: !!localStorage.getItem("jwt"),
-  token: localStorage.getItem("jwt") || null,
+  isAuthenticated: !!TokenService.getToken(),
+  token: TokenService.getToken() || null,
 };
 
 const authSlice = createSlice({
@@ -13,12 +14,12 @@ const authSlice = createSlice({
     login: (state, action: PayloadAction<string>) => {
       state.isAuthenticated = true;
       state.token = action.payload;
-      localStorage.setItem("jwt", action.payload);
+      TokenService.updateToken(action.payload);
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.token = null;
-      localStorage.removeItem("jwt"); 
+      TokenService.removeToken();
     },
   },
 });

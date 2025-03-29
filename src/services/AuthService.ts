@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from '../utils/axiosConfig';
 import { LoginRequest } from "../types/types";
 
 const API = import.meta.env.VITE_AUTH_API;
